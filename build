@@ -5,10 +5,16 @@ then
 	DTC=dtc
 fi
 
-TARGET_DIR="${PWD}/src/mainboard/amd/romecrb/target/x86_64-unknown-none/release"
-mkdir -p "${TARGET_DIR}"
-FIXED_DTFS=fixed-dtfs.dtb
+dtc_me() {
+	pushd "$1" >/dev/null
+	TARGET_DIR="target/x86_64-unknown-none/release"
+	mkdir -p "${TARGET_DIR}"
+	FIXED_DTFS=fixed-dtfs.dtb
+	"${DTC}" -W no-unit_address_vs_reg fixed-dtfs.dts -O dtb -o "${TARGET_DIR}/${FIXED_DTFS}"
+	popd >/dev/null
+}
 
-"${DTC}" -W no-unit_address_vs_reg src/mainboard/amd/romecrb/fixed-dtfs.dts -O dtb -o "${TARGET_DIR}/${FIXED_DTFS}"
+dtc_me "${PWD}/src/mainboard/amd/romecrb"
+dtc_me "${PWD}/src/mainboard/emulation/qemu-q35"
 
 exec ../in-rust-nightly make OBJCOPY=objcopy -C src/mainboard/amd/romecrb "$@"
