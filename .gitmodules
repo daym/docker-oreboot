@@ -1,0 +1,3 @@
+[submodule "oreboot"]
+	path = oreboot
+	url = https://github.com/oreboot/oreboot.git

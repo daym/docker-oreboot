@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -e
+cd rust-nightly-extra
+docker build -t rust-nightly-extra .
