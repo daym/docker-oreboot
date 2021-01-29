@@ -4,7 +4,10 @@ Build oreboot with Docker.
 
 # Usage:
 
-Put file `bzImage` containing a Linux kernel (or LinuxBoot) into subdirectory `oreboot`, and then:
+    git submodule init
+    git submodule update
+
+Then put file `bzImage` containing a Linux kernel (or LinuxBoot) into subdirectory `oreboot`, and then:
 
     ./prepare
     cd oreboot
