@@ -18,3 +18,4 @@ dtc_me "${PWD}/src/mainboard/amd/romecrb"
 dtc_me "${PWD}/src/mainboard/emulation/qemu-q35"
 
 exec ../in-rust-nightly make OBJCOPY=objcopy -C src/mainboard/amd/romecrb "$@"
+exec ../in-rust-nightly make OBJCOPY=objcopy -C src/mainboard/emulation/qemu-q35 "$@"
