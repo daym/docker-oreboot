@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 if [ -z "${DTC}" ]
 then
 	DTC=dtc
@@ -16,6 +18,9 @@ dtc_me() {
 
 dtc_me "${PWD}/src/mainboard/amd/romecrb"
 dtc_me "${PWD}/src/mainboard/emulation/qemu-q35"
+
+(cd src/mainboard/amd/romecrb && as -c -o start.o start.S)
+(cd src/mainboard/amd/romecrb && objcopy -O binary start.o start.bin)
 
 exec ../in-rust-nightly make OBJCOPY=objcopy -C src/mainboard/amd/romecrb "$@"
 exec ../in-rust-nightly make OBJCOPY=objcopy -C src/mainboard/emulation/qemu-q35 "$@"
