@@ -1,5 +1,14 @@
 #!/bin/sh
 set -e
 
-p="${PWD}"
+if [ "$1" = "-w" ]
+then
+	shift
+	p="$1"
+	p="`realpath \"${p}\"`"
+	shift
+else
+	p="${PWD}"
+fi
+
 exec docker run --rm -e RUST_TARGET_PATH="${RUST_TARGET_PATH}" -e TARGET_DIR="${TARGET_DIR}" -e PAYLOAD_A="${PAYLOAD_A}" -e USER="${USER}" --user "$(id -u)":"$(id -g)" -v "${PWD}:${PWD}" -w "${p}" rust-nightly-extra:latest "$@"
