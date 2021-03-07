@@ -18,9 +18,19 @@ dtc_me() {
 
 dtc_me "${PWD}/src/mainboard/amd/romecrb"
 dtc_me "${PWD}/src/mainboard/emulation/qemu-q35"
+dtc_me "${PWD}/src/mainboard/asrock/a300m-stx"
 
-(cd src/mainboard/amd/romecrb && as -c -o start.o start.S)
-(cd src/mainboard/amd/romecrb && objcopy -O binary start.o start.bin)
+if [ -z "${MAINBOARD}" ]
+then
+	MAINBOARD="src/mainboard/amd/romecrb"
+fi
 
-exec ../in-rust-nightly make OBJCOPY=objcopy -C src/mainboard/amd/romecrb "$@"
-exec ../in-rust-nightly make OBJCOPY=objcopy -C src/mainboard/emulation/qemu-q35 "$@"
+(cd "${MAINBOARD}" && as -c -o start.o start.S)
+(cd "${MAINBOARD}" && objcopy -O binary start.o start.bin)
+
+in-rust-nightly -w src/soc/amd/picasso cargo fmt --all
+in-rust-nightly -w src/soc/amd/rome cargo fmt --all
+#in-rust-nightly clippy ...
+../in-rust-nightly make OBJCOPY=objcopy -C "${MAINBOARD}" "$@"
+#exec "`dirname $0`/pack"
+#exec ../in-rust-nightly make OBJCOPY=objcopy -C src/mainboard/emulation/qemu-q35 "$@"
