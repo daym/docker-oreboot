@@ -13,6 +13,6 @@ Then put file `bzImage` containing a Linux kernel (or LinuxBoot) into subdirecto
 
     ./prepare
     cd oreboot
-    PAYLOAD_A="${PWD}/bzImage" ../build
+    MAINBOARD=src/mainboard/amd/romecrb PAYLOAD_A="${PWD}/bzImage" ../build
 
 Note that `build` needs a device tree compiler (`dtc`) on the host since it's not in the Docker image.
