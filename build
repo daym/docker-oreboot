@@ -30,6 +30,11 @@ fi
 
 in-rust-nightly -w src/soc/amd/picasso cargo fmt --all
 in-rust-nightly -w src/soc/amd/rome cargo fmt --all
+in-rust-nightly -w src/soc/amd/common/df cargo fmt --all
+in-rust-nightly -w src/soc/amd/common/pci cargo fmt --all
+in-rust-nightly -w src/soc/amd/common/smn cargo fmt --all
+#in-rust-nightly -w src/mainboard/amd/romecrb cargo fmt --all
+#in-rust-nightly -w src/mainboard/asrock/a300m-stx cargo fmt --all
 #in-rust-nightly clippy ...
 ../in-rust-nightly make OBJCOPY=objcopy -C "${MAINBOARD}" "$@"
 #exec "`dirname $0`/pack"
