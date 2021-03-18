@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+if [ -z "${RTE_HOST}" ]
+then
+	RTE_HOST=root@a300-minion
+fi
+(cd src/mainboard/asrock/a300m-stx && go run patch.go)
+scp src/mainboard/asrock/a300m-stx/out.bin "${RTE_HOST}:/tmp/"
+
+${HOP} ssh "${RTE_HOST}" /usr/bin/RteCtrl -poff
+
+# Enable SPIO VCC
+${HOP} ssh "${RTE_HOST}" sh -c "echo 1 > /sys/class/gpio/gpio406/value"
+
+# Enable SPI data lines
+${HOP} ssh "${RTE_HOST}" sh -c "echo 1 > /sys/class/gpio/gpio404/value"
+
+sleep 1
+
+${HOP} ssh "${RTE_HOST}" /usr/sbin/flashrom -p linux_spi:dev=/dev/spidev1.0,spispeed=16000 -w /tmp/out.bin
+${HOP} ssh "${RTE_HOST}" /usr/bin/RteCtrl -pon
