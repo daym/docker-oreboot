@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+cd src/mainboard/amd/romecrb
+
+if [ -z "${BMC_HOST}" ]
+then
+	BMC_HOST=root@dmsv01
+fi
+
+if [ ! -z "${HOPSERVER}" ] ; then scp final.fd ${HOPSERVER}: ; fi
+${HOP} scp final.fd "${BMC_HOST}:/tmp/final.fd"
+${HOP} ssh "${BMC_HOST}" /usr/sbin/powerctl.sh Off
+sleep 2
+${HOP} ssh "${BMC_HOST}" ./flash.sh /tmp/final.fd
+${HOP} ssh "${BMC_HOST}" /usr/sbin/powerctl.sh On
