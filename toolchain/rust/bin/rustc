@@ -2,20 +2,20 @@
 
 set -e
 
-WD="${PWD}"
+root="${PWD}"
 
 # Move out until .idea is visible underneath directly
 for s in `seq 1 100`
 do
-        if [ -d .idea ]
-        then
-                break
-        fi
-        if [ -d .config ] # $HOME
-        then
-                break
-        fi
-        cd ..
+	if [ -d "${root}/.idea" ]
+	then
+		break
+	fi
+	if [ -d "${root}/.config" ] # $HOME
+	then
+		break
+	fi
+	root="${root}/.."
 done
 
-exec in-rust-nightly -w "${WD}" rustc "$@"
+exec in-rust-nightly -r "${root}" rustc "$@"
