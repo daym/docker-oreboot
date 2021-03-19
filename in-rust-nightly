@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+root="${PWD}"
+
 if [ "$1" = "-w" ]
 then
 	shift
@@ -11,4 +13,12 @@ else
 	p="${PWD}"
 fi
 
-exec docker run --rm -e RUST_TARGET_PATH="${RUST_TARGET_PATH}" -e TARGET_DIR="${TARGET_DIR}" -e PAYLOAD_A="${PAYLOAD_A}" -e USER="${USER}" --user "$(id -u)":"$(id -g)" -v "${PWD}:${PWD}" -w "${p}" rust-nightly-extra:latest "$@"
+if [ "$1" = "-r" ]
+then
+	shift
+	root="$1"
+	root="`realpath \"${root}\"`"
+	shift
+fi
+
+exec docker run --rm -e RUST_TARGET_PATH="${RUST_TARGET_PATH}" -e TARGET_DIR="${TARGET_DIR}" -e PAYLOAD_A="${PAYLOAD_A}" -e USER="${USER}" --user "$(id -u)":"$(id -g)" -v "${root}:${root}" -w "${p}" rust-nightly-extra:latest "$@"
