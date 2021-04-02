@@ -11,10 +11,10 @@ scp src/mainboard/asrock/a300m-stx/out.bin "${RTE_HOST}:/tmp/"
 ${HOP} ssh "${RTE_HOST}" /usr/bin/RteCtrl -poff
 
 # Enable SPIO VCC
-${HOP} ssh "${RTE_HOST}" sh -c "echo 1 > /sys/class/gpio/gpio406/value"
+${HOP} ssh "${RTE_HOST}" "sh -c 'echo -n 1 > /sys/class/gpio/gpio406/value'"
 
 # Enable SPI data lines
-${HOP} ssh "${RTE_HOST}" sh -c "echo 1 > /sys/class/gpio/gpio404/value"
+${HOP} ssh "${RTE_HOST}" "sh -c 'echo -n 1 > /sys/class/gpio/gpio404/value'"
 
 sleep 1
 
