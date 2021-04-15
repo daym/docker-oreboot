@@ -37,14 +37,7 @@ dtc_me "${PWD}/src/mainboard/asrock/a300m-stx"
 (cd "${MAINBOARD}" && as -c -o start.o start.S)
 (cd "${MAINBOARD}" && objcopy -O binary start.o start.bin)
 
-../in-rust-nightly -w src/soc/amd/picasso cargo fmt --all
-../in-rust-nightly -w src/soc/amd/rome cargo fmt --all
-../in-rust-nightly -w src/soc/amd/common/df cargo fmt --all
-../in-rust-nightly -w src/soc/amd/common/pci cargo fmt --all
-../in-rust-nightly -w src/soc/amd/common/smn cargo fmt --all
-#../in-rust-nightly -w src/mainboard/amd/romecrb cargo fmt --all
-#../in-rust-nightly -w src/mainboard/asrock/a300m-stx cargo fmt --all
-#../in-rust-nightly clippy ...
+../in-rust-nightly make format
 ../in-rust-nightly make OBJCOPY=objcopy -C "${MAINBOARD}" "$@"
 #exec "`dirname $0`/pack"
 #exec ../in-rust-nightly make OBJCOPY=objcopy -C src/mainboard/emulation/qemu-q35 "$@"
