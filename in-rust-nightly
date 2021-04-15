@@ -21,4 +21,4 @@ then
 	shift
 fi
 
-exec docker run --rm -e RUST_TARGET_PATH -e TARGET_DIR -e PAYLOAD_A -e USER --user "$(id -u)":"$(id -g)" -v "${root}:${root}" -w "${p}" rust-nightly-extra:latest "$@"
+exec docker run --rm -e RUST_TARGET_PATH -e TARGET_DIR -e PAYLOAD_A -e USER -e CARGO_NET_OFFLINE --user "$(id -u)":"$(id -g)" -v "${root}:${root}" -w "${p}" rust-nightly-extra:latest "$@"
