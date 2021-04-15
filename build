@@ -16,14 +16,23 @@ dtc_me() {
 	popd >/dev/null
 }
 
-dtc_me "${PWD}/src/mainboard/amd/romecrb"
-dtc_me "${PWD}/src/mainboard/emulation/qemu-q35"
-dtc_me "${PWD}/src/mainboard/asrock/a300m-stx"
-
 if [ -z "${MAINBOARD}" ]
 then
 	MAINBOARD="src/mainboard/amd/romecrb"
 fi
+
+# Docker takes very long to transfer ~1 GiB otherwise
+for s in tools/layoutflash/target src/mainboard/emulation/qemu-q35/target src/mainboard/amd/romecrb/target src/mainboard/asrock/a300m-stx/target
+do
+	if ! [ "$s" = "${MAINBOARD}/target" ]
+	then
+		rm -rf -- "$s"
+	fi
+done
+
+dtc_me "${PWD}/src/mainboard/amd/romecrb"
+dtc_me "${PWD}/src/mainboard/emulation/qemu-q35"
+dtc_me "${PWD}/src/mainboard/asrock/a300m-stx"
 
 (cd "${MAINBOARD}" && as -c -o start.o start.S)
 (cd "${MAINBOARD}" && objcopy -O binary start.o start.bin)
