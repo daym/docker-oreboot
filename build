@@ -34,8 +34,8 @@ dtc_me "${PWD}/src/mainboard/amd/romecrb"
 dtc_me "${PWD}/src/mainboard/emulation/qemu-q35"
 dtc_me "${PWD}/src/mainboard/asrock/a300m-stx"
 
-(cd "${MAINBOARD}" && as -c -o start.o start.S)
-(cd "${MAINBOARD}" && objcopy -O binary start.o start.bin)
+../in-rust-nightly -w "${MAINBOARD}" -r "${MAINBOARD}" as -c -o start.o start.S
+../in-rust-nightly -w "${MAINBOARD}" -r "${MAINBOARD}" objcopy -O binary start.o start.bin
 
 ../in-rust-nightly make format
 ../in-rust-nightly make OBJCOPY=objcopy -C "${MAINBOARD}" "$@"
