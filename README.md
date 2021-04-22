@@ -4,8 +4,6 @@ Build oreboot with Docker.
 
 # Usage:
 
-    cat oreboot/rust-toolchain | egrep 'toolchain|channel|components' |sed -e 's;"llvm-tools-preview", ;;' >oreboot/rust-toolchain.new && mv oreboot/rust-toolchain.new oreboot/rust-toolchain
-
 First, run
 
     ./prepare
@@ -15,6 +13,7 @@ This will prepare a Docker image with the Rust compiler from DockerHub and then 
 Then put file `bzImage` containing a Linux kernel (or LinuxBoot) into subdirectory `oreboot`, and then:
 
     cd oreboot
+    cat rust-toolchain | egrep 'toolchain|channel|components' |sed -e 's;"llvm-tools-preview", ;;' >rust-toolchain.new && mv rust-toolchain.new rust-toolchain
     MAINBOARD=src/mainboard/amd/romecrb PAYLOAD_A="${PWD}/bzImage" ../build
 
 Note that `build` needs a device tree compiler (`dtc`) on the host since it's not in the Docker image.
