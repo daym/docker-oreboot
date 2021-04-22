@@ -6,9 +6,14 @@ Build oreboot with Docker.
 
     cat oreboot/rust-toolchain | egrep 'toolchain|channel|components' |sed -e 's;"llvm-tools-preview", ;;' >oreboot/rust-toolchain.new && mv oreboot/rust-toolchain.new oreboot/rust-toolchain
 
-Then put file `bzImage` containing a Linux kernel (or LinuxBoot) into subdirectory `oreboot`, and then:
+First, run
 
     ./prepare
+
+This will prepare a Docker image with the Rust compiler from DockerHub and then it will check out `oreboot` into the subdirectory `oreboot`.
+
+Then put file `bzImage` containing a Linux kernel (or LinuxBoot) into subdirectory `oreboot`, and then:
+
     cd oreboot
     MAINBOARD=src/mainboard/amd/romecrb PAYLOAD_A="${PWD}/bzImage" ../build
 
