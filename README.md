@@ -4,8 +4,6 @@ Build oreboot with Docker.
 
 # Usage:
 
-    git submodule init
-    git submodule update
     cat oreboot/rust-toolchain | egrep 'toolchain|channel|components' |sed -e 's;"llvm-tools-preview", ;;' >oreboot/rust-toolchain.new && mv oreboot/rust-toolchain.new oreboot/rust-toolchain
 
 Then put file `bzImage` containing a Linux kernel (or LinuxBoot) into subdirectory `oreboot`, and then:
