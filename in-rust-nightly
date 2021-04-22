@@ -4,7 +4,7 @@ set -e
 # MacOS X
 command -v realpath >/dev/null 2>&1 || {
 	realpath() {
-		if ! [ "$1" = "${1%/*}" ]
+		if ! [ "$1" = "${1#/*}" ]
 		then
 			echo -n "$1"
 		else
