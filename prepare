@@ -1,5 +1,11 @@
 #!/bin/sh
 
 set -e
+
+if [ -d "oreboot" ]
+then
+	git clone https://github.com/oreboot/oreboot.git oreboot
+fi
+
 cd rust-nightly-extra
 docker build -t rust-nightly-extra .
