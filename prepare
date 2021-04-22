@@ -2,7 +2,7 @@
 
 set -e
 
-if [ -d "oreboot" ]
+if ! [ -d "oreboot" ]
 then
 	git clone https://github.com/oreboot/oreboot.git oreboot
 fi
