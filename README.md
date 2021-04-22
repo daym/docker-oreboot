@@ -10,7 +10,7 @@ First, run
 
 This will prepare a Docker image with the Rust compiler from DockerHub and then it will check out `oreboot` into the subdirectory `oreboot`.
 
-Then put file `bzImage` containing a Linux kernel (or LinuxBoot) into subdirectory `oreboot`, and then:
+Then you need to put file `bzImage` containing a Linux kernel (or LinuxBoot) into subdirectory `oreboot`, and then:
 
     cd oreboot
     cat rust-toolchain | egrep 'toolchain|channel|components' |sed -e 's;"llvm-tools-preview", ;;' >rust-toolchain.new && mv rust-toolchain.new rust-toolchain
