@@ -10,6 +10,8 @@ then
 	exit 1
 fi
 
+"`dirname $0`/pack"
+
 source_address=$((0xC00000))
 image_size=$((0x400000))
 destination_address=$((0x76C00000))

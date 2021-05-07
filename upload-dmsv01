@@ -1,6 +1,9 @@
 #!/bin/sh
 
 set -e
+set -x
+
+"`dirname $0`/pack"
 
 cd src/mainboard/amd/romecrb
 
