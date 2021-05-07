@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# Usage: run-qemu [-monitor stdio|-serial stdio] [-S] [-d nochain,in_asm,cpu,int,guest_errors] [-smp 1]
+
+set -e
+
+if [ -z "${QEMU}" ]
+then
+	echo "QEMU environment variable required but unset.">&2
+	exit 1
+fi
+
+source_address=$((0xC00000))
+image_size=$((0x400000))
+destination_address=$((0x76C00000))
+export QEMU_CS_BASE=$(($destination_address + $image_size - 65536))
+echo QEMU_CS_BASE=$QEMU_CS_BASE
+
+# Note: qemu sets the memory area >= 0xC0000000 up on their own.  That won't work for us.
+
+cd ./src/mainboard/amd/romecrb
+
+dd if=final.fd skip=$(($source_address)) of=/tmp/img bs=4096 iflag=skip_bytes,count_bytes count=$(($image_size))
+
+run_q() {
+	${QEMU} \
+	 -machine type=q35 \
+	 -m 5G \
+	 ${opts} \
+	 -d guest_errors \
+	 -d unimp \
+	 -display none \
+	 -no-reboot \
+	 -no-shutdown \
+	 -gdb tcp::1234 \
+	 "$@"
+}
+
+opts="-device loader,file=/tmp/img,addr=$destination_address,cpu-num=0,force-raw=on -device loader,addr=0xfff0,csbaseaddr=$QEMU_CS_BASE,cpu-num=0 -bios /tmp/img"
+if ! run_q "$@"
+then # old qemu
+	exit 1
+	opts="-device loader,file=/tmp/img,addr=$destination_address,cpu-num=0,force-raw=on -device loader,addr=0xfff0,cpu-num=0 -bios /tmp/img"
+	run_q "$@"
+fi
