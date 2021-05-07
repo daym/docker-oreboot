@@ -39,7 +39,6 @@ run_q() {
 opts="-device loader,file=/tmp/img,addr=$destination_address,cpu-num=0,force-raw=on -device loader,addr=0xfff0,csbaseaddr=$QEMU_CS_BASE,cpu-num=0 -bios /tmp/img"
 if ! run_q "$@"
 then # old qemu
-	exit 1
 	opts="-device loader,file=/tmp/img,addr=$destination_address,cpu-num=0,force-raw=on -device loader,addr=0xfff0,cpu-num=0 -bios /tmp/img"
 	run_q "$@"
 fi
