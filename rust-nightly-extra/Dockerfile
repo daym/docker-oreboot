@@ -13,6 +13,7 @@ RUN cargo install cargo-fuzz
 RUN cargo install afl
 #RUN cargo install llvm-tools-preview # broken
 RUN cargo install cargo-binutils
+RUN cargo install flamegraph
 ADD oreboot /oreboot
 RUN cd /oreboot \
 && egrep 'toolchain|channel|components' rust-toolchain | sed 's;"llvm-tools-preview", ;;'  >R \
