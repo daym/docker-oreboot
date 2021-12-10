@@ -24,3 +24,12 @@ RUN cd /oreboot \
 && (cd tools/layoutflash && cargo build --target x86_64-unknown-linux-gnu) || true \
 && chmod -R +rwX /usr/local/cargo/registry \
 && rm -rf /oreboot
+ADD fractal /fractal
+RUN cd /fractal \
+&& cargo update -p matrix-sdk --aggressive \
+&& cargo update -p matrix-sdk \
+&& cargo update -p fractal \
+&& cargo update -p goblin \
+&& cargo update -p serde \
+&& cargo update -p serde_json \
+&& cargo build || true
