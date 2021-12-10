@@ -2,7 +2,8 @@ FROM rustlang/rust:nightly AS rust-nightly-with-rust-src
 ## this also sets it per-directory sometimes--be careful
 #RUN rustup override set nightly-2021-09-01
 RUN rustup component add rust-src
-RUN rustup component add miri
+## not always available
+#RUN rustup component add miri
 RUN rustup component add clippy-preview
 #RUN rustup component add llvm-tools
 #^ --toolchain nightly-2021-08-01-x86_64-unknown-linux-gnu
