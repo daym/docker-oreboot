@@ -5,7 +5,7 @@ RUN apk add libc-dev libusb-dev libftdi1-dev make
 ADD humility /humility
 RUN cargo install --path /humility --locked
 ## this also sets it per-directory sometimes--be careful
-#RUN rustup override set nightly-2021-09-01
+RUN rustup default nightly-2021-09-01
 RUN rustup component add rust-src
 ## not always available
 #RUN rustup component add miri
