@@ -1,4 +1,9 @@
-FROM rustlang/rust:nightly AS rust-nightly-with-rust-src
+FROM rustlang/rust:nightly-alpine AS rust-nightly-with-rust-src
+# That's for humility and its deps
+RUN apk add libc-dev libusb-dev libftdi1-dev make
+#RUN cargo install --git https://github.com/oxidecomputer/humility.git --locked
+ADD humility /humility
+RUN cargo install --path /humility --locked
 ## this also sets it per-directory sometimes--be careful
 #RUN rustup override set nightly-2021-09-01
 RUN rustup component add rust-src
