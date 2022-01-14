@@ -1,6 +1,6 @@
 FROM rustlang/rust:nightly-alpine AS rust-nightly-with-rust-src
 # That's for humility and its deps
-RUN apk add libc-dev libusb-dev libftdi1-dev make
+RUN apk add make libc-dev libusb-dev libftdi1-dev
 #RUN cargo install --git https://github.com/oxidecomputer/humility.git --locked
 ADD humility /humility
 RUN cargo install --path /humility --locked
@@ -27,12 +27,11 @@ RUN cd /oreboot \
 && make OBJCOPY=objcopy -C src/mainboard/amd/romecrb || true \
 && (cd tools/layoutflash && cargo build --target x86_64-unknown-linux-gnu --release) || true \
 && (cd tools/layoutflash && cargo build --target x86_64-unknown-linux-gnu) || true \
-&& chmod -R +rwX /usr/local/cargo/registry \
+&& chmod -R a+rwX /usr/local/cargo/registry \
+&& chmod -R a+rwX /usr/local/cargo/git \
 && rm -rf /oreboot
 ADD fractal /fractal
 RUN cd /fractal \
-&& cargo update -p matrix-sdk --aggressive \
-&& cargo update -p matrix-sdk \
 && cargo update -p fractal \
 && cargo update -p goblin \
 && cargo update -p serde \
