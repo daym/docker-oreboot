@@ -1,9 +1,10 @@
 FROM rustlang/rust:nightly-alpine AS rust-nightly-with-rust-src
 # That's for humility and its deps
 RUN apk add make libc-dev libusb-dev libftdi1-dev
-#RUN cargo install --git https://github.com/oxidecomputer/humility.git --locked
-ADD humility /humility
-RUN cargo install --path /humility --locked
+# Cortex-M3, qemu
+RUN rustup target add thumbv7m-none-eabi
+# Nucleo-H7
+RUN rustup target add thumbv7em-none-eabi
 ## this also sets it per-directory sometimes--be careful
 RUN rustup default nightly-2021-09-01
 RUN rustup component add rust-src
@@ -19,21 +20,4 @@ RUN cargo install afl
 #RUN cargo install llvm-tools-preview # broken
 RUN cargo install cargo-binutils
 RUN cargo install flamegraph
-ADD oreboot /oreboot
-RUN cd /oreboot \
-&& egrep 'toolchain|channel|components' rust-toolchain | sed 's;"llvm-tools-preview", ;;'  >R \
-&& mv R rust-toolchain \
-&& umask 000 \
-&& make OBJCOPY=objcopy -C src/mainboard/amd/romecrb || true \
-&& (cd tools/layoutflash && cargo build --target x86_64-unknown-linux-gnu --release) || true \
-&& (cd tools/layoutflash && cargo build --target x86_64-unknown-linux-gnu) || true \
-&& chmod -R a+rwX /usr/local/cargo/registry \
-&& chmod -R a+rwX /usr/local/cargo/git \
-&& rm -rf /oreboot
-ADD fractal /fractal
-RUN cd /fractal \
-&& cargo update -p fractal \
-&& cargo update -p goblin \
-&& cargo update -p serde \
-&& cargo update -p serde_json \
-&& cargo build || true
+RUN chmod -R a+rwX /usr/local/cargo/registry

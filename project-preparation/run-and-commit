@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+d="`dirname \"$0\"`"
+
+container_id="`\"$d/../in-rust-nightly\" -k \"$@\" |tail`"
+docker attach "${container_id}" || true # this can fail if the container stopped too fast
+docker wait "${container_id}"
+docker commit "${container_id}" rust-nightly-extra
+echo OK

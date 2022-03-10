@@ -15,6 +15,22 @@ command -v realpath >/dev/null 2>&1 || {
 
 root="${PWD}"
 
+if [ "$1" = "-k" ]
+then
+	shift
+	opts="-d"
+else
+	opts="--rm"
+fi
+
+if [ "$1" = "-r" ]
+then
+	shift
+	root="$1"
+	root="`realpath \"${root}\"`"
+	shift
+fi
+
 if [ "$1" = "-w" ]
 then
 	shift
@@ -33,4 +49,4 @@ then
 	shift
 fi
 
-exec docker run --rm -e RUST_TARGET_PATH -e RUSTFLAGS -e TARGET_DIR -e PAYLOAD_A -e USER -e CARGO_NET_OFFLINE --user "$(id -u)":"$(id -g)" -v "${root}:${root}" -w "${p}" rust-nightly-extra:latest "$@"
+exec docker run ${opts} -e RUST_TARGET_PATH -e RUSTFLAGS -e TARGET_DIR -e PAYLOAD_A -e USER -e CARGO_NET_OFFLINE --user "$(id -u)":"$(id -g)" -v "${root}:${root}" -w "${p}" rust-nightly-extra:latest "$@"

@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+d="`dirname \"$0\"`"
+"${d}/prepare-oreboot"
+
+prepare() {
+	../run-and-commit "$@"
+}
+
+(cd fractal && prepare cargo build) || true
+(cd hubris && prepare cargo xtask dist app/demo-stm32h7-nucleo/app-h743.toml) || true
+(cd humility && prepare cargo install --path . --locked) || true
+(cd nanobl-rs && prepare cargo build) || true
+
+# fractal
+# && cargo update -p fractal \
+# && cargo update -p goblin \
+# && cargo update -p serde \
+# && cargo update -p serde_json \
+
+# TODO: chmod -R a+rwX /usr/local/cargo/registry \
+# && chmod -R a+rwX /usr/local/cargo/git
