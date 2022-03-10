@@ -12,4 +12,9 @@ prepare_oreboot() {
 	../run-and-commit cargo build --target x86_64-unknown-linux-gnu || true
 }
 
+if ! [ -d "oreboot" ]
+then
+	git clone https://github.com/oreboot/oreboot.git oreboot
+fi
+
 (cd oreboot && prepare_oreboot)

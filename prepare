@@ -2,10 +2,5 @@
 
 set -e
 
-if ! [ -d "project-preparation/oreboot" ]
-then
-	git clone https://github.com/oreboot/oreboot.git project-preparation/oreboot
-fi
-
 (cd rust-nightly-extra && docker build -t rust-nightly-extra .)
 (cd project-preparation && ./prepare-oreboot)

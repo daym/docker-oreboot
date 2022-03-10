@@ -8,7 +8,13 @@ First, run
 
     ./prepare
 
-This will prepare a Docker image with the Rust compiler from DockerHub and then it will check out `oreboot` into the subdirectory `oreboot`.
+This will prepare a Docker image with the Rust compiler from DockerHub.
+
+Then, run
+
+    git clone https://github.com/oreboot/oreboot.git oreboot
+
+in order to check out `oreboot` into the subdirectory `oreboot`.
 
 Then you need to put file `bzImage` containing a Linux kernel (or LinuxBoot) into subdirectory `oreboot`, and then:
 
