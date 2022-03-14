@@ -49,4 +49,4 @@ then
 	shift
 fi
 
-exec docker run ${opts} -e RUST_TARGET_PATH -e RUSTFLAGS -e TARGET_DIR -e PAYLOAD_A -e USER -e CARGO_NET_OFFLINE --user "$(id -u)":"$(id -g)" -v "${root}:${root}" -w "${p}" rust-nightly-extra:latest "$@"
+exec docker run ${opts} -e HOME -e RUSTC_FORCE_INCREMENTAL -e SSH_AGENT_PID -e SSH_AUTH_SOCK -e RUSTFLAGS -e CARGO_NET_OFFLINE -e RUST_TARGET_PATH -e TARGET_DIR -e PAYLOAD_A -e USER -e RUST_BACKTRACE --user "$(id -u)":"$(id -g)" -v "${root}:${root}" -w "${p}" rust-nightly-extra:latest "$@"
