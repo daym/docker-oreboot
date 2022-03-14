@@ -20,4 +20,5 @@ RUN cargo install afl
 #RUN cargo install llvm-tools-preview # broken
 RUN cargo install cargo-binutils
 RUN cargo install flamegraph
+RUN cargo install cargo-with
 RUN chmod -R a+rwX /usr/local/cargo/registry
