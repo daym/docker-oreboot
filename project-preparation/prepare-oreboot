@@ -8,8 +8,8 @@ prepare_oreboot() {
 	egrep 'toolchain|channel|components' rust-toolchain | sed 's;"llvm-tools-preview", ;;'  >R && mv R rust-toolchain
 	../run-and-commit make OBJCOPY=objcopy -C src/mainboard/amd/romecrb
 	cd tools/layoutflash
-	../run-and-commit cargo build --target x86_64-unknown-linux-gnu --release || true
-	../run-and-commit cargo build --target x86_64-unknown-linux-gnu || true
+	../../../run-and-commit cargo build --target x86_64-unknown-linux-gnu --release || true
+	../../../run-and-commit cargo build --target x86_64-unknown-linux-gnu || true
 }
 
 if ! [ -d "oreboot" ]
