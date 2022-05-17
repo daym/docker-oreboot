@@ -8,7 +8,7 @@ RUN rustup target add thumbv7em-none-eabi
 # RISC-V ESP32-C3
 RUN rustup target add riscv32i-unknown-none-elf
 ## this also sets it per-directory sometimes--be careful
-RUN rustup default nightly-2021-09-01
+RUN rustup default nightly-2022-04-26
 RUN rustup component add rust-src
 ## not always available
 #RUN rustup component add miri
