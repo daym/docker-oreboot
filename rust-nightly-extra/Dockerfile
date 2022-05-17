@@ -5,6 +5,8 @@ RUN apk add make libc-dev libusb-dev libftdi1-dev
 RUN rustup target add thumbv7m-none-eabi
 # Nucleo-H7
 RUN rustup target add thumbv7em-none-eabi
+# RISC-V ESP32-C3
+RUN rustup target add riscv32i-unknown-none-elf
 ## this also sets it per-directory sometimes--be careful
 RUN rustup default nightly-2021-09-01
 RUN rustup component add rust-src
@@ -21,4 +23,5 @@ RUN cargo install afl
 RUN cargo install cargo-binutils
 RUN cargo install flamegraph
 RUN cargo install cargo-with
+# Nightly is too old: RUN cargo install espflash
 RUN chmod -R a+rwX /usr/local/cargo/registry
