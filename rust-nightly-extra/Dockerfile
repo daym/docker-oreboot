@@ -1,6 +1,6 @@
 FROM rustlang/rust:nightly-alpine AS rust-nightly-with-rust-src
 # That's for humility and its deps
-RUN apk add make libc-dev libusb-dev libftdi1-dev
+RUN apk add make libc-dev libusb-dev libftdi1-dev openssl openssl-dev
 # Cortex-M3, qemu
 RUN rustup target add thumbv7m-none-eabi
 # Nucleo-H7
@@ -16,8 +16,11 @@ RUN rustup component add clippy-preview
 #RUN rustup component add llvm-tools
 #^ --toolchain nightly-2021-08-01-x86_64-unknown-linux-gnu
 #RUN cargo install evcxr_repl # >= v0.5.1
+RUN cargo install cargo-audit
 RUN cargo install cargo-expand
 RUN cargo install cargo-fuzz
+RUN cargo install cargo-outdated
+RUN cargo install cargo-geiger
 RUN cargo install afl
 #RUN cargo install llvm-tools-preview # broken
 RUN cargo install cargo-binutils
