@@ -9,6 +9,8 @@ RUN rustup target add thumbv7em-none-eabi
 RUN rustup target add riscv32i-unknown-none-elf
 # x86 bare metal
 RUN rustup target add x86_64-unknown-none
+# WebAssembly
+RUN rustup target add wasm32-unknown-unknown
 ## this also sets it per-directory sometimes--be careful
 RUN rustup default nightly-2022-05-13
 RUN rustup component add rust-src
