@@ -12,7 +12,7 @@ RUN rustup target add x86_64-unknown-none
 # WebAssembly
 RUN rustup target add wasm32-unknown-unknown
 ## this also sets it per-directory sometimes--be careful
-RUN rustup default nightly-2022-05-13
+RUN rustup default nightly-2022-08-03
 RUN rustup component add rust-src
 ## not always available
 #RUN rustup component add miri
