@@ -34,6 +34,7 @@ RUN cargo install wasm-bindgen-cli
 RUN cargo install espflash
 RUN cargo install cargo-out-dir
 RUN cargo install cargo-bundle
+RUN cargo install grcov
 #RUN cargo install rustpython
 #RUN cargo install cargo-llvm-cov # requires llvm-tools-preview--which is broken
 RUN chmod -R a+rwX /usr/local/cargo/registry
