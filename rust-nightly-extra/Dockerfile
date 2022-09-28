@@ -1,10 +1,14 @@
 FROM rustlang/rust:nightly-alpine AS rust-nightly-with-rust-src
 # That's for humility and its deps
 RUN apk add make libc-dev libusb-dev libftdi1-dev openssl openssl-dev
+#RUN apk add gcc-arm-linux-gnueabihf
+RUN apk add gcc-arm-none-eabi
 # Cortex-M3, qemu
 RUN rustup target add thumbv7m-none-eabi
 # Nucleo-H7
 RUN rustup target add thumbv7em-none-eabi
+# Raspberry Pi
+RUN rustup target add armv7-unknown-linux-gnueabihf
 # RISC-V ESP32-C3
 RUN rustup target add riscv32i-unknown-none-elf
 # x86 bare metal
