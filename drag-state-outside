@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Sometimes you want IntelliJ IDEA to be able to read the standard library sources.
+
+set -e
+for s in usr/local/cargo usr/local/rustup
+do
+	sudo rm -rf "/${s}"
+	./in-rust-nightly tar c "$s" -C / | sudo tar xp -C /
+done

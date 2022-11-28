@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+
+root="${PWD}"
+d="`dirname \"$0\"`"
+
+root="${root}/.."
+# Move out until .idea is visible underneath directly
+for s in `seq 1 100`
+do
+	if [ -d "${root}/.idea" ]
+	then
+		break
+	fi
+	if [ -d "${root}/.config" ] # $HOME
+	then
+		break
+	fi
+	root="${root}/.."
+done
+
+exec "${HOME}/.local/bin/in-rust-nightly" -r "${root}" "`basename $0`" "$@"
