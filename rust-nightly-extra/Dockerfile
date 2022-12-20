@@ -42,6 +42,7 @@ RUN cargo install grcov
 
 # --no-default-features
 RUN cargo install --force cargo-make
+RUN cargo install cargo-xtask
 #RUN cargo install rustpython
 #RUN cargo install cargo-llvm-cov # requires llvm-tools-preview--which is broken
 RUN chmod -R a+rwX /usr/local/cargo/registry
