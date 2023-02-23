@@ -23,7 +23,6 @@ RUN rustup component add rust-src
 RUN rustup component add clippy-preview
 #RUN rustup component add llvm-tools
 #^ --toolchain nightly-2021-08-01-x86_64-unknown-linux-gnu
-#RUN cargo install evcxr_repl # >= v0.5.1
 RUN cargo install cargo-audit
 RUN cargo install cargo-expand
 RUN cargo install cargo-fuzz
@@ -42,7 +41,10 @@ RUN cargo install grcov
 
 # --no-default-features
 RUN cargo install --force cargo-make
-RUN cargo install cargo-xtask
+#RUN cargo install cargo-xtask
 #RUN cargo install rustpython
 #RUN cargo install cargo-llvm-cov # requires llvm-tools-preview--which is broken
+# won't work in musl (does install, though):
+#RUN cargo install evcxr_repl # >= v0.5.1
+
 RUN chmod -R a+rwX /usr/local/cargo/registry
