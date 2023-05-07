@@ -5,6 +5,8 @@ RUN apk add make libc-dev libusb-dev libftdi1-dev openssl openssl-dev
 RUN apk add gcc-arm-none-eabi
 # Used by hubris dist
 RUN apk add git
+# Used by humility; alternative: libudev-zero https://github.com/illiliti/libudev-zero/
+RUN apk add eudev-dev
 # Cortex-M3, qemu
 RUN rustup target add thumbv7m-none-eabi
 # Nucleo-H7
@@ -40,6 +42,8 @@ RUN cargo install espflash
 RUN cargo install cargo-out-dir
 RUN cargo install cargo-bundle
 RUN cargo install grcov
+# humility needs that
+RUN cargo install cargo-readme
 
 # --no-default-features
 RUN cargo install --force cargo-make
