@@ -44,6 +44,8 @@ RUN cargo install cargo-bundle
 RUN cargo install grcov
 # humility needs that
 RUN cargo install cargo-readme
+# Benchmarking
+RUN cargo install hyperfine
 
 # --no-default-features
 RUN cargo install --force cargo-make
