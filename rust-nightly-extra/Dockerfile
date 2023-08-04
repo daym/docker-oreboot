@@ -30,25 +30,25 @@ RUN rustup component add rust-src
 RUN rustup component add clippy-preview
 #RUN rustup component add llvm-tools
 #^ --toolchain nightly-2021-08-01-x86_64-unknown-linux-gnu
-RUN cargo install cargo-audit
-RUN cargo install cargo-expand
-RUN cargo install cargo-fuzz
-RUN cargo install cargo-outdated
-RUN cargo install cargo-geiger
-RUN cargo install afl
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-audit
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-expand
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-fuzz
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-outdated
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-geiger
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install afl
 #RUN cargo install llvm-tools-preview # broken
-RUN cargo install cargo-binutils
-RUN cargo install flamegraph
-RUN cargo install cargo-with
-RUN cargo install wasm-bindgen-cli
-RUN cargo install espflash
-RUN cargo install cargo-out-dir
-RUN cargo install cargo-bundle
-RUN cargo install grcov
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-binutils
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install flamegraph
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-with
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install wasm-bindgen-cli
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install espflash
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-out-dir
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-bundle
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install grcov
 # humility needs that
-RUN cargo install cargo-readme
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-readme
 # Benchmarking
-RUN cargo install hyperfine
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install hyperfine
 # Required by cargo-release
 RUN apk --no-cache add ca-certificates \
     && rm -rf /var/cache/apk/*
@@ -57,19 +57,19 @@ RUN update-ca-certificates
 # Required by cargo-release (really, openssl-sys)
 RUN apk add perl
 # Releasing
-RUN cargo install cargo-release
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-release
 # Changelog generation
-RUN cargo install git-cliff
-RUN cargo install cargo-semver-checks
-RUN cargo install cargo-dist
-RUN cargo install release-plz
-RUN cargo install cargo-smart-release
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install git-cliff
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-semver-checks
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-dist
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install release-plz
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-smart-release
 # --no-default-features
-RUN cargo install --force cargo-make
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install --force cargo-make
 #RUN cargo install cargo-xtask
 #RUN cargo install rustpython
 #RUN cargo install cargo-llvm-cov # requires llvm-tools-preview--which is broken
 # won't work in musl (does install, though):
 #RUN cargo install evcxr_repl # >= v0.5.1
 
-RUN chmod -R a+rwX /usr/local/cargo/registry
+#RUN chmod -R a+rwX /usr/local/cargo/registry
