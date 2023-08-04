@@ -49,6 +49,11 @@ RUN cargo install grcov
 RUN cargo install cargo-readme
 # Benchmarking
 RUN cargo install hyperfine
+# Required by cargo-release
+RUN apk --no-cache add ca-certificates \
+    && rm -rf /var/cache/apk/*
+# Required by cargo-release
+RUN update-ca-certificates
 # Required by cargo-release (really, openssl-sys)
 RUN apk add perl
 # Releasing
