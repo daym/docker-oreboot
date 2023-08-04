@@ -5,8 +5,8 @@ RUN apk add make libc-dev libusb-dev libftdi1-dev openssl openssl-dev
 RUN apk add gcc-arm-none-eabi
 # Used by hubris dist
 RUN apk add git
-# Required by cargo-release--but probably not by cargo smart-release
-#RUN apk add openssh-client
+# Required by cargo-release and cargo smart-release
+RUN apk add openssh-client
 
 # Used by humility; alternative: libudev-zero https://github.com/illiliti/libudev-zero/
 RUN apk add eudev-dev
