@@ -5,6 +5,9 @@ RUN apk add make libc-dev libusb-dev libftdi1-dev openssl openssl-dev
 RUN apk add gcc-arm-none-eabi
 # Used by hubris dist
 RUN apk add git
+# Required by cargo-release--but probably not by cargo smart-release
+#RUN apk add openssh-client
+
 # Used by humility; alternative: libudev-zero https://github.com/illiliti/libudev-zero/
 RUN apk add eudev-dev
 # Cortex-M3, qemu
@@ -46,7 +49,16 @@ RUN cargo install grcov
 RUN cargo install cargo-readme
 # Benchmarking
 RUN cargo install hyperfine
-
+# Required by cargo-release (really, openssl-sys)
+RUN apk add perl
+# Releasing
+RUN cargo install cargo-release
+# Changelog generation
+RUN cargo install git-cliff
+RUN cargo install cargo-semver-checks
+RUN cargo install cargo-dist
+RUN cargo install release-plz
+RUN cargo install cargo-smart-release
 # --no-default-features
 RUN cargo install --force cargo-make
 #RUN cargo install cargo-xtask
