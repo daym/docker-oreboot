@@ -63,6 +63,8 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install git-cliff
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-semver-checks
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-dist
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install release-plz
+# Optional for cargo-smart-release; github access
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install gh
 # Required by cargo-smart-release
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install bat
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-smart-release
