@@ -77,3 +77,6 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install --force cargo-make
 #RUN cargo install evcxr_repl # >= v0.5.1
 
 #RUN chmod -R a+rwX /usr/local/cargo/registry
+
+# Add dependency trust checker
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install --locked cackle
