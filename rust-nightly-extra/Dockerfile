@@ -1,8 +1,8 @@
 FROM rustlang/rust:nightly-alpine AS rust-nightly-with-rust-src
 # That's for humility and its deps
 RUN apk add make libc-dev libusb-dev libftdi1-dev openssl openssl-dev
-#RUN apk add gcc-arm-linux-gnueabihf
-RUN apk add gcc-arm-none-eabi
+# does not exist: RUN apk add gcc-arm-linux-gnueabihf
+# linker is broken: RUN apk add gcc-arm-none-eabi
 # Used by hubris dist
 RUN apk add git
 # Required by cargo-release and cargo smart-release
@@ -16,6 +16,9 @@ RUN rustup target add thumbv7m-none-eabi
 RUN rustup target add thumbv7em-none-eabi
 # Raspberry Pi
 RUN rustup target add armv7-unknown-linux-gnueabihf
+# Kobo Mini; although why not armv7-unknown-linux-gnueabihf?
+RUN rustup target add armv7a-none-eabi
+#armv7-unknown-linux-musleabihf
 # RISC-V ESP32-C3
 RUN rustup target add riscv32i-unknown-none-elf
 # x86 bare metal
@@ -80,3 +83,11 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install --force cargo-make
 
 # Add dependency trust checker
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install --locked cackle
+
+# Inspect rustc LLVM optimization remarks
+# See <https://kobzol.github.io/rust/cargo/2023/08/12/rust-llvm-optimization-remarks.html>.
+# The intermediate languages (HIR, MIR) render them a bit too far removed from the Rust source code.
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-remark
+
+# Allow using external toolchain
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cross
