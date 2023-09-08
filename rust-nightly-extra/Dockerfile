@@ -38,7 +38,7 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-expand
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-fuzz
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-outdated
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-geiger
-RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install afl
+# disappeared RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install afl
 #RUN cargo install llvm-tools-preview # broken
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-binutils
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install flamegraph
@@ -70,7 +70,8 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install release-plz
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install gh
 # Required by cargo-smart-release
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install bat
-RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-smart-release
+# Now uses libz-ng-sys which uses cmake
+#RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-smart-release
 # --no-default-features
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install --force cargo-make
 #RUN cargo install cargo-xtask
