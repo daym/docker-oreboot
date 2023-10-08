@@ -92,3 +92,6 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-remark
 
 # Allow using external toolchain
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cross
+
+# Manual vetting of crates
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-vet
