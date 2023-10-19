@@ -50,5 +50,23 @@ then
 fi
 
 # /tmp is so that SSH_AUTH_SOCK is found.
-
-exec docker run ${opts} -e HOME -e RUSTC_FORCE_INCREMENTAL -e SSH_AGENT_PID -e SSH_AUTH_SOCK -e RUSTFLAGS -e CARGO_NET_OFFLINE -e RUST_TARGET_PATH -e TARGET_DIR -e PAYLOAD_A -e USER -e RUST_BACKTRACE --user "$(id -u)":"$(id -g)" -v "${root}:${root}" -v /tmp:/tmp -w "${p}" rust-nightly-extra:latest "$@"
+env_pass_variables="
+	HOME                                \
+	RUSTC_FORCE_INCREMENTAL             \
+	SSH_AGENT_PID                       \
+	SSH_AUTH_SOCK                       \
+	RUSTFLAGS                           \
+	CARGO_NET_OFFLINE                   \
+	RUST_TARGET_PATH                    \
+	TARGET_DIR                          \
+	PAYLOAD_A                           \
+	USER                                \
+	RUST_BACKTRACE                      \
+"
+getEnvVariableArguments() {
+	local s
+	for s in $env_pass_variables; do
+		echo -n "-e '$s' "
+	done
+}
+exec docker run ${opts} `getEnvVariableArguments` --user "$(id -u)":"$(id -g)" -v "${root}:${root}" -v /tmp:/tmp -w "${p}" rust-nightly-extra:latest "$@"
