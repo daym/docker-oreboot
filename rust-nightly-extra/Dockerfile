@@ -95,3 +95,19 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cross
 
 # Manual vetting of crates
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-vet
+
+# Find unused dependencies
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-udeps
+
+# Find junk in your executables
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-bloat
+
+# Generate full call graph
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-call-stack
+
+# Show assembly, LLVM-IR, MIR
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-show-asm
+
+# cargo-unused-features linker error
+# TODO: Rudra Rust Memory Safety & Undefined Behavior Detection (old)
+# TODO: Rustviz lifetime visualization https://github.com/rustviz/rustviz
