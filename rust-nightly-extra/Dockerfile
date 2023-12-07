@@ -28,6 +28,7 @@ RUN rustup target add wasm32-unknown-unknown
 ## this also sets it per-directory sometimes--be careful
 #RUN rustup default nightly-2022-08-03
 RUN rustup component add rust-src
+RUN rustup component add rust-analyzer
 ## not always available
 #RUN rustup component add miri
 RUN rustup component add clippy-preview
@@ -111,6 +112,11 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-show-asm
 
 # emacs rustic uses that
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-edit
+
+# lsp
+#RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install rust-analyzer
+#$ git clone https://github.com/rust-lang/rust-analyzer.git && cd rust-analyzer
+#$ cargo xtask install --server
 
 # cargo-unused-features linker error
 # TODO: Rudra Rust Memory Safety & Undefined Behavior Detection (old)
