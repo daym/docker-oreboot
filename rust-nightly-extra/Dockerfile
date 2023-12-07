@@ -98,6 +98,7 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-vet
 
 # Find unused dependencies
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-udeps
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-deny
 
 # Find junk in your executables
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-bloat
@@ -107,6 +108,9 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-call-stack
 
 # Show assembly, LLVM-IR, MIR
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-show-asm
+
+# emacs rustic uses that
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-edit
 
 # cargo-unused-features linker error
 # TODO: Rudra Rust Memory Safety & Undefined Behavior Detection (old)
