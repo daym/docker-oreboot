@@ -25,6 +25,8 @@ RUN rustup target add riscv32i-unknown-none-elf
 RUN rustup target add x86_64-unknown-none
 # WebAssembly
 RUN rustup target add wasm32-unknown-unknown
+RUN rustup target add aarch64-linux-android
+
 ## this also sets it per-directory sometimes--be careful
 #RUN rustup default nightly-2022-08-03
 RUN rustup component add rust-src
@@ -121,3 +123,7 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-edit
 # cargo-unused-features linker error
 # TODO: Rudra Rust Memory Safety & Undefined Behavior Detection (old)
 # TODO: Rustviz lifetime visualization https://github.com/rustviz/rustviz
+
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-apk
+
+# TODO: cargo-cache
