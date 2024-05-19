@@ -127,3 +127,7 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-edit
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-apk
 
 # TODO: cargo-cache
+
+# For yaiouom
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static rustup component add rustc-dev
+#RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install yaiouom-checker
