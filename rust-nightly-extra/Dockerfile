@@ -12,6 +12,7 @@ RUN apk add openssh-client
 RUN apk add eudev-dev
 # Cortex-M3, qemu
 RUN rustup target add thumbv7m-none-eabi
+
 # Nucleo-H7
 RUN rustup target add thumbv7em-none-eabi
 # Raspberry Pi
@@ -26,6 +27,10 @@ RUN rustup target add x86_64-unknown-none
 # WebAssembly
 RUN rustup target add wasm32-unknown-unknown
 RUN rustup target add aarch64-linux-android
+
+# RP2350
+RUN rustup target add thumbv8m.main-none-eabihf
+RUN rustup target add riscv32imac-unknown-none-elf
 
 ## this also sets it per-directory sometimes--be careful
 #RUN rustup default nightly-2022-08-03
