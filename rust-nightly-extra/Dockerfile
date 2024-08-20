@@ -71,7 +71,8 @@ RUN apk add perl
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-release
 # Changelog generation
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install git-cliff
-RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-semver-checks
+# Build failure (cmake missing or something in another package)
+#RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-semver-checks
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-dist
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install release-plz
 # Optional for cargo-smart-release; github access
