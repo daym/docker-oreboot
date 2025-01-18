@@ -32,6 +32,9 @@ RUN rustup target add aarch64-linux-android
 RUN rustup target add thumbv8m.main-none-eabihf
 RUN rustup target add riscv32imac-unknown-none-elf
 
+# Windows
+RUN rustup target add x86_64-pc-windows-gnu
+
 ## this also sets it per-directory sometimes--be careful
 #RUN rustup default nightly-2022-08-03
 RUN rustup component add rust-src
