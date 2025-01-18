@@ -134,6 +134,7 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-edit
 # TODO: Rustviz lifetime visualization https://github.com/rustviz/rustviz
 
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-apk
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-machete
 
 # TODO: cargo-cache
 
