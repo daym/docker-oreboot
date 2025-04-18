@@ -49,6 +49,13 @@ then
 	shift
 fi
 
-# /tmp is so that SSH_AUTH_SOCK is found.
+#if [ "$1" = "rustfmt" ]
+#then
+#    opts="-i ${opts}"
+#fi
 
-exec docker run ${opts} -e HOME -e RUSTC_FORCE_INCREMENTAL -e SSH_AGENT_PID -e SSH_AUTH_SOCK -e RUSTFLAGS -e CARGO_NET_OFFLINE -e RUST_TARGET_PATH -e TARGET_DIR -e PAYLOAD_A -e USER -e RUST_BACKTRACE --user "$(id -u)":"$(id -g)" -v "${root}:${root}" -v /tmp:/tmp -w "${p}" rust-nightly-extra:latest "$@"
+# Give me a break... <https://github.com/containers/podman/issues/2898>
+podman_opts="--userns=keep-id"
+
+# /tmp is so that SSH_AUTH_SOCK is found.
+exec docker run -i ${opts} ${podman_opts} -e HOME -e RUSTC_FORCE_INCREMENTAL -e SSH_AGENT_PID -e SSH_AUTH_SOCK -e RUSTFLAGS -e CARGO_NET_OFFLINE -e RUST_TARGET_PATH -e TARGET_DIR -e PAYLOAD_A -e USER -e RUST_BACKTRACE --user "$(id -u)":"$(id -g)" -v "${root}:${root}" -v /tmp:/tmp -w "${p}" rust-nightly-extra:latest "$@"
