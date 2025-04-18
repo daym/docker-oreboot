@@ -76,7 +76,7 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-release
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install git-cliff
 # Build failure (cmake missing or something in another package)
 #RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-semver-checks
-RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-dist
+# broken: RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-dist  error[E0599]: the method `as_dyn_error` exists for reference `&ParseError`, but its trait bounds were not satisfied    = note: the following trait bounds were not satisfied:            `cargo_dist_schema::target_lexicon::ParseError: StdError`
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install release-plz
 # Optional for cargo-smart-release; github access
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install gh
