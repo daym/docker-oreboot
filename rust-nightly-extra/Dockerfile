@@ -10,6 +10,10 @@ RUN apk add openssh-client
 
 # Used by humility; alternative: libudev-zero https://github.com/illiliti/libudev-zero/
 RUN apk add eudev-dev
+
+RUN rustup default nightly
+#-2022-08-03
+
 # Cortex-M3, qemu
 RUN rustup target add thumbv7m-none-eabi
 
@@ -36,7 +40,6 @@ RUN rustup target add riscv32imac-unknown-none-elf
 RUN rustup target add x86_64-pc-windows-gnu
 
 ## this also sets it per-directory sometimes--be careful
-#RUN rustup default nightly-2022-08-03
 RUN rustup component add rust-src
 RUN rustup component add rust-analyzer
 ## not always available
@@ -141,3 +144,8 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-machete
 # For yaiouom
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static rustup component add rustc-dev
 #RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install yaiouom-checker
+# Update stable toolchain (otherwise, it's really old--like 2024)
+RUN RUSTFLAGS=-Ctarget-feature=-crt-static rustup toolchain install stable-x86_64-unknown-linux-musl
+
+RUN rustup default stable
+
