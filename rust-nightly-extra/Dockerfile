@@ -1,6 +1,6 @@
 FROM rustlang/rust:nightly-alpine AS rust-nightly-with-rust-src
 # That's for humility and its deps
-RUN apk add make libc-dev libusb-dev libftdi1-dev openssl openssl-dev
+RUN apk add make libc-dev libusb-dev libftdi1-dev openssl openssl-dev openssl-libs-static
 # does not exist: RUN apk add gcc-arm-linux-gnueabihf
 # linker is broken: RUN apk add gcc-arm-none-eabi
 # Used by hubris dist
