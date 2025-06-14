@@ -46,6 +46,9 @@ RUN rustup component add rust-analyzer
 #RUN rustup component add miri
 RUN rustup component add clippy-preview
 #RUN rustup component add llvm-tools
+# For rustowl and yaiouom
+RUN rustup component add rustc-dev
+RUN rustup component add llvm-tools-preview
 #^ --toolchain nightly-2021-08-01-x86_64-unknown-linux-gnu
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-audit
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-expand
@@ -142,7 +145,6 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-machete
 # TODO: cargo-cache
 
 # For yaiouom
-RUN RUSTFLAGS=-Ctarget-feature=-crt-static rustup component add rustc-dev
 #RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install yaiouom-checker
 # Update stable toolchain (otherwise, it's really old--like 2024)
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static rustup toolchain install stable-x86_64-unknown-linux-musl
