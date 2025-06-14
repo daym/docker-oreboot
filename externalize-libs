@@ -1,4 +1,3 @@
 #!/bin/sh
 set -e
 ./in-rust-nightly tar c /usr/local/cargo /usr/local/rustup |tar x -C /
-./in-rust-nightly tar c /usr/local/rustup /usr/local/rustup |tar x -C /
