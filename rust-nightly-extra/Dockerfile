@@ -151,3 +151,4 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static rustup toolchain install stable-x86_6
 
 RUN rustup default stable
 
+RUN find /usr/local/cargo -type f -perm 600 -exec chmod 644 {} \; && find /usr/local/rustup -type f -perm 600 -exec chmod 644 {} \; && find /usr/local/cargo -type f -perm 640 -exec chmod 644 {} \; && find /usr/local/rustup -type f -perm 640 -exec chmod 644 {} \;
