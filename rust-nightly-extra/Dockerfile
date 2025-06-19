@@ -56,7 +56,6 @@ RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-fuzz
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-outdated
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-geiger
 # disappeared RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install afl
-#RUN cargo install llvm-tools-preview # broken
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-binutils
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install flamegraph
 RUN RUSTFLAGS=-Ctarget-feature=-crt-static cargo install cargo-with
