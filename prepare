@@ -2,5 +2,5 @@
 
 set -e
 
-(cd rust-nightly-extra && docker build -t rust-nightly-extra .)
+(cd rust-nightly-extra && podman build -t rust-nightly-extra .)
 (cd project-preparation && ./prepare-oreboot)

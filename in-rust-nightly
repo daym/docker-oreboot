@@ -58,4 +58,4 @@ fi
 podman_opts="--userns=keep-id"
 
 # /tmp is so that SSH_AUTH_SOCK is found.
-exec docker run -i ${opts} ${podman_opts} -e HOME -e RUSTC_FORCE_INCREMENTAL -e SSH_AGENT_PID -e SSH_AUTH_SOCK -e RUSTFLAGS -e CARGO_NET_OFFLINE -e RUST_TARGET_PATH -e TARGET_DIR -e PAYLOAD_A -e USER -e RUST_BACKTRACE --user "$(id -u)":"$(id -g)" -v "${root}:${root}" -v /tmp:/tmp -w "${p}" rust-nightly-extra:latest "$@"
+exec podman run -i ${opts} ${podman_opts} -e PROTOC -e CC -e CXX -e LD -e LEDGER_COMMAND -e CARGO_PKG_VERSION -e CARGO_MANIFEST_DIR -e HOME -e OUT_DIR -e RUSTC_BOOTSTRAP -e RUSTC_FORCE_INCREMENTAL -e SSH_AGENT_PID -e SSH_AUTH_SOCK -e RUSTFLAGS -e CARGO_NET_OFFLINE -e CARGO_NET_GIT_FETCH_WITH_CLI -e CARGO_LOG -e OXIDE_WTW_ROOT -e RUST_TARGET_PATH -e TARGET_DIR -e PAYLOAD_A -e USER -e RUST_BACKTRACE --user "$(id -u)":"$(id -g)" -v "${root}:${root}" -v /tmp:/tmp -w "${p}" rust-nightly-extra:latest "$@"
